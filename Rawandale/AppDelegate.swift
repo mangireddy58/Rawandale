@@ -8,15 +8,44 @@
 
 import UIKit
 import CoreData
+import IQKeyboardManagerSwift
+import GoogleSignIn
+import FacebookCore
+import FacebookLogin
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var storyBoard :UIStoryboard?
+    var navigationController : UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //For IQKeyboardManager
+        IQKeyboardManager.sharedManager().enable = true
+        
+        // Facebook
+         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        if window == nil {
+            window = UIWindow(frame: UIScreen.main.bounds)
+        }
+        if navigationController == nil {
+            navigationController = UINavigationController()
+        }
+        if storyBoard == nil {
+            storyBoard = UIStoryboard(name: "Main", bundle:nil)
+        }
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        // storyboard with identifer
+        let loginViewController = storyBoard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        navigationController?.pushViewController(loginViewController , animated: true)
+        
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -87,6 +116,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    //MARK:- CallBAck Methods
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        /*if [url.absoluteString].contains("google") {
+         if #available(iOS 9.0, *) {
+         let options: [String: AnyObject] = [UIApplicationOpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplicationOpenURLOptionsKey.annotation.rawValue: annotation as AnyObject]
+         print(options)
+         } else {
+         // Callback on earlier versions
+         }
+         return GIDSignIn.sharedInstance().handle(url as URL!,sourceApplication: sourceApplication,annotation: annotation)
+         }
+         else {
+         return FBSDKApplicationDelegate.sharedInstance().application(application, open: url as URL!, sourceApplication: sourceApplication, annotation: annotation)
+         }*/
+        let checkFB = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        let checkGoogle = GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication,annotation: annotation)
+        return checkGoogle || checkFB
     }
 
 }
