@@ -15,7 +15,6 @@ class OtherDrivesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
 
     @IBAction func action(_ sender: Any) {

@@ -25,7 +25,6 @@ class RootViewController: UIViewController {
             objUniversalDataModel = UniversalDataModel.getUniversalDataModel()
         }
     }
-
     // MARK:- Login
     func fnForLoginViewController () {
         let loginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController

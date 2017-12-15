@@ -198,8 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(payload)
         
     }
-    
-    
+
     
 
 }
