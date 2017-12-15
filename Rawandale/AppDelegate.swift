@@ -13,15 +13,20 @@ import GoogleSignIn
 import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
+import UserNotifications
+import AudioToolbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    var token: String = ""
     var window: UIWindow?
     var storyBoard :UIStoryboard?
     var navigationController : UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Register for Push Notification
+        self.fnForRegisterRemoteNotification()
         
         //For IQKeyboardManager
         IQKeyboardManager.sharedManager().enable = true
@@ -36,12 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navigationController = UINavigationController()
         }
         if storyBoard == nil {
-            storyBoard = UIStoryboard(name: "Main", bundle:nil)
+            storyBoard = UIStoryboard(name:"Main", bundle:nil)
         }
         navigationController?.setNavigationBarHidden(true, animated: true)
-        // storyboard with identifer
-        let loginViewController = storyBoard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        navigationController?.pushViewController(loginViewController , animated: true)
+        if let loginStates = (UserDefaults.standard.value(forKey: "isLoggedIn") as? String)  {
+            if loginStates == "1" {
+                let revealViewController = storyBoard?.instantiateViewController(withIdentifier: "RevealViewController") as! RevealViewController
+                navigationController?.pushViewController(revealViewController , animated: true)
+            }
+            else {
+                let loginViewController = storyBoard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                navigationController?.pushViewController(loginViewController , animated: true)
+            }
+            
+        }
+        else {
+            let loginViewController = storyBoard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            navigationController?.pushViewController(loginViewController , animated: true)
+        }
         
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
@@ -70,12 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+//        self.saveContext()
     }
 
     // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
+    /*lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -116,26 +132,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
+    }*/
     
-    //MARK:- CallBAck Methods
+    //MARK:- CallBack Methods
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        /*if [url.absoluteString].contains("google") {
-         if #available(iOS 9.0, *) {
-         let options: [String: AnyObject] = [UIApplicationOpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplicationOpenURLOptionsKey.annotation.rawValue: annotation as AnyObject]
-         print(options)
-         } else {
-         // Callback on earlier versions
-         }
-         return GIDSignIn.sharedInstance().handle(url as URL!,sourceApplication: sourceApplication,annotation: annotation)
-         }
-         else {
-         return FBSDKApplicationDelegate.sharedInstance().application(application, open: url as URL!, sourceApplication: sourceApplication, annotation: annotation)
-         }*/
         let checkFB = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         let checkGoogle = GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication,annotation: annotation)
         return checkGoogle || checkFB
     }
+    //MARK:- Notifications
+    func fnForRegisterRemoteNotification()  {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        else {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+    //MARK:-Remote Notification Delegate // <= iOS 9.x
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        UIApplication.shared.registerForRemoteNotifications()
+    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("Got token data! \(deviceToken)")
+        for i in 0..<deviceToken.count {
+            token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
+        }
+        print("Device Token Id \(token)")
+        
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print(userInfo)
+    }
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error)
+    }
+    //MARK:- UNUserNotificationCenter Delegate // >= iOS 10
+    @available(iOS 10.0, *)
+    func userNotificationCenter(center: UNUserNotificationCenter, willPresentNotification notification: UNNotification, withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
+        print("User Info = %@",notification.request.content.userInfo)
+        completionHandler([.badge, .alert, .sound])
+        
+    }
+    @available(iOS 10.0, *)
+    func userNotificationCenter(center: UNUserNotificationCenter, didReceiveNotificationResponse response: UNNotificationResponse, withCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        print("User Info = %@",response.notification.request.content.userInfo);
+        let application:UIApplication = UIApplication.shared
+        if application.applicationState == UIApplicationState.active {
+            print("Active")
+            AudioServicesPlaySystemSound(1002)
+        }
+        else if application.applicationState == UIApplicationState.background {
+            print("Background")
+            self .callApplicationInactiveForPush(payload: response.notification.request.content.userInfo as NSDictionary)
+        }
+        else if application.applicationState == UIApplicationState.inactive {
+            print("InActive")
+            self .callApplicationInactiveForPush(payload: response.notification.request.content.userInfo as NSDictionary)
+        }
+        completionHandler(.newData)
+    }
+    func callApplicationInactiveForPush(payload:NSDictionary){
+        print(payload)
+        
+    }
+    
+    
+    
 
 }
 

@@ -64,5 +64,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow Rawandale to access your camera to capture images.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow Rawandale to access your photo library to upload images.</string>
 </dict>
 </plist>

@@ -11,9 +11,8 @@ import GoogleSignIn
 import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
-import LinkedinSwift
 
-class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDelegate, ClassForServerCommDelegate {
     
     var parentNavigationController : UINavigationController?
     @IBOutlet weak var joinNowLbl: UILabel!
@@ -26,56 +25,13 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadInputViews()
-        // For rechability
-        reachability.whenReachable = { reachability in
-            DispatchQueue.main.async {
-                self.networkLbl.text = "Internet connected"
-                self.networkLbl.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                // self.internetView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-                self.internetView.isHidden = false
-            }
-        }
-        reachability.whenUnreachable = { reachability in
-            DispatchQueue.main.async {
-                self.networkLbl.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                self.networkLbl.text = "Internet not connected"
-                self.internetView.isHidden = false
-                //                self.internetView.backgroundColor = #colorLiteral(red: 0.8048847317, green: 0.4376866966, blue: 0.2836556642, alpha: 1)
-            }
-        }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: ReachabilityChangedNotification, object: reachability)
-        do{
-            try reachability.startNotifier()
-        }catch {
-            print("could not start notifier")
-        }
     }
     func loadInputViews () {
         //self.internetView.isHidden = true
         
     }
-    func internetChanged (note:Notification) {
-        let reachability = note.object as! Reachability
-        if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
-                DispatchQueue.main.async {
-                    //self.internetView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-                    self.internetView.isHidden = true
-                }
-            }else {
-                DispatchQueue.main.async {
-                    self.internetView.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
-                }
-            }
-        }else {
-            self.internetView.isHidden = false
-            self.networkLbl.text = "Internet not connected"
-            self.networkLbl.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            self.internetView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            //self.internetView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        }
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         GIDSignIn.sharedInstance().shouldFetchBasicProfile = true
         GIDSignIn.sharedInstance().clientID = GOOGLE_CLIENT_ID
@@ -104,30 +60,88 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
 
     //MARK:- Google sign in
     func fnForGmailBtnPressed () {
-        print("Gmail btn clicked")
-        //self.fnForSignUpViewController()
-        GIDSignIn.sharedInstance().signOut()
-        GIDSignIn.sharedInstance().signIn()
+        if self.isConnectedToNetwork() == false {
+            print("No internet connection")
+        }
+        else {
+            //self.fnForSignUpViewController()
+            GIDSignIn.sharedInstance().signOut()
+            GIDSignIn.sharedInstance().signIn()
+        }
     }
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error == nil) {
+            var imageUrlStr = ""
+            if user.profile.hasImage {
+                imageUrlStr = user.profile .imageURL(withDimension: 100).absoluteString
+                print(imageUrlStr)
+            }
+            
+            
+            var firstNameStr = ""
+            if ((user.profile.givenName)as AnyObject as? NSNull) != NSNull() {
+                firstNameStr = user.profile.givenName
+                print(firstNameStr)
+            }
+            var lastNameStr = ""
+            if ((user.profile.familyName)as AnyObject as? NSNull) != NSNull() {
+                lastNameStr = user.profile.familyName
+                print(lastNameStr)
+            }
             // Perform any operations on signed in user here.
             let userId = user.userID                  // For client-side use only!
             let idToken = user.authentication.idToken // Safe to send to the server
             let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
+            let firstName = user.profile.givenName
+            let lastName = user.profile.familyName
             let email = user.profile.email
+//            let gander = us
+
+            let profileImageUrl = user.profile.imageURL(withDimension: 200)
+            print("Image url \(String(describing: profileImageUrl))")
+            let url = profileImageUrl?.absoluteString
+            let imageUrl = NSURL(string: url!)
+            let imageData = try? Data(contentsOf: imageUrl! as URL)
+            let image: UIImage = UIImage(data: imageData!)!
+            let myImageData:NSData = UIImagePNGRepresentation(image) as NSData!
             
-            print(userId!,idToken!,fullName!,givenName!,familyName!,email!)
+            print(userId!,idToken!,fullName!,firstName!,lastName!,email!, url!)
             
-            // Data saving in UserDefaults
+            
+            
+            
+            /*
+            let gplusapi = "https://www.googleapis.com/oauth2/v3/userinfo?access_token=\(user.authentication.accessToken!)"
+            let url1 = NSURL(string: gplusapi)!
+            let request = NSMutableURLRequest(url: url1 as URL)
+            request.httpMethod = "GET"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            let session = URLSession.shared
+            session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                do {
+                    let userData = try JSONSerialization.jsonObject(with: data!, options:[]) as? [String:AnyObject]
+                    print("Data is \(userData!)")
+                    let picture = userData!["picture"] as! String
+                    let gender = userData!["gender"] as! String
+                    let locale = userData!["locale"] as! String
+                    
+                } catch {
+                    NSLog("Account Information could not be loaded")
+                }
+                
+            }).resume()*/
+            
+             // Data saving in UserDefaults
              let userDefaults = UserDefaults.standard
              userDefaults.set(fullName, forKey: "FullName")
+             userDefaults.set(firstName, forKey: "FirstName")
+             userDefaults.set(lastName, forKey: "LastName")
              userDefaults.set(email, forKey: "EMailId")
+             userDefaults.set(imageUrlStr, forKey: "SavedMyImage")
              userDefaults.synchronize()
-            
-            self.fnForSignUpViewController()
+    
+            self.socialEmailExist()
             
         } else {
             print("\(error.localizedDescription)")
@@ -136,14 +150,11 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
               withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
+        
     }
     
     // MARK:- Facebook login
     func fnForFacebookButtonPressed () {
-        print("Facebook btn clicked")
-//        self.fnForSignUpViewController()
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email", "public_profile", "user_friends"], from: self) { (result, error) in
             if (error == nil){
@@ -151,7 +162,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
                 if fbloginresult.grantedPermissions != nil {
                     if(fbloginresult.grantedPermissions.contains("email")) {
                         if((FBSDKAccessToken.current()) != nil){
-                            FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                            FBSDKGraphRequest(graphPath: "/me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email, gender, user_birthday, user_hometown"]).start(completionHandler: { (connection, result, error) -> Void in
                                 if (error == nil){
                                     self.dict = result as! [String : AnyObject]
                                     print(result!)
@@ -170,7 +181,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
                                     userDefaults.set(self.dict["email"] as! String, forKey: "EMailId")
                                     userDefaults.set(myImageData, forKey: "SavedMyImage")
                                     userDefaults.synchronize()
-                                    self.fnForSignUpViewController()
+                                    self.socialEmailExist()
                                 }
                             })
                         }
@@ -183,11 +194,54 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     func fnForLinkedInBtnPressed () {
         print("Linked in btn clicked")
         self.fnForSignUpViewController()
-        
-        
+      
     }
     
+    //MARK:- Social Email Exist
+    func socialEmailExist () {
+        let checkEmailParams = String(format:CHECK_EMAIL_ID_PARAMS, UserDefaults.standard.object(forKey: "EMailId") as! CVarArg)
+        let serverCommObj = ServerCommunication()
+        serverCommObj.delegate = self
+        print("",checkEmailParams)
+        kServiceUrlTag = kSERVICE_URL_TAG.social_email_exist_url_tag.rawValue
+        serverCommObj.sendHttpPostRequestWithParam(parameterString: checkEmailParams, serviceName: CHECK_EMAIL_URL)
+    }
     
+    // MARK:- Social sign
+    func fnForSocialLogin () {
+//        let userId = UserDefaults.standard.object(forKey: "EMailId") as! String
+//        let socialLoginParams = String(format:Social_login_parameters,userId,"ios")
+//        let serverCommObj = ServerCommunication()
+//        serverCommObj.delegate = self
+//        print("",socialLoginParams)
+//        kServiceUrlTag = kSERVICE_URL_TAG.social_login_url_tag.rawValue
+//        serverCommObj.sendHttpPostRequestWithParam(parameterString: socialLoginParams, serviceName: SOCIAL_URL)
+    }
+    
+    // MARK:- Service success method
+    func onServiceSuccess(responseDictionary: NSDictionary) {
+        print(responseDictionary)
+        switch kServiceUrlTag {
+        case kSERVICE_URL_TAG.social_email_exist_url_tag.rawValue:
+            let message = responseDictionary["message"] as! String
+            if message == "Email already exists" {
+                print(message)
+            }
+            else {
+                perform(#selector(self.fnForSocialLogin), with: self, afterDelay: 0.1)
+            }
+            break
+        case kSERVICE_URL_TAG.social_login_url_tag.rawValue:
+            print("language")
+            break
+        default:
+            break
+            
+        }
+    }
+    func onServiceFailed() {
+        print("Service failed")
+    }
     
     
     

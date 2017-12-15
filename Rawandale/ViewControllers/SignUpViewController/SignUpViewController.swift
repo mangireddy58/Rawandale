@@ -17,6 +17,7 @@ class SignUpViewController: RootViewController,UITextFieldDelegate {
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var emailIdLbl: UILabel!
     @IBOutlet weak var mobileNumTxtFld: UITextField!
+    @IBOutlet weak var backButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -25,12 +26,17 @@ class SignUpViewController: RootViewController,UITextFieldDelegate {
     
     }
     func loadInputViews () {
+    
+        let tintedImage = UIImage(named: "back")?.withRenderingMode(.alwaysTemplate)
+        backButton.setImage(tintedImage, for: .normal)
+        backButton.tintColor = UIColor.lightGray
+        
         self.mobileNumTxtFld.tag = 1
         self.mobileNumTxtFld.delegate = self
-        let centeredParagraphStyle = NSMutableParagraphStyle()
-        centeredParagraphStyle.alignment = .center
-        let attributedPlaceholder = NSAttributedString(string:"Mobile Number", attributes: [NSParagraphStyleAttributeName: centeredParagraphStyle])
-        self.mobileNumTxtFld.attributedPlaceholder = attributedPlaceholder
+//        let centeredParagraphStyle = NSMutableParagraphStyle()
+//        centeredParagraphStyle.alignment = .center
+//        let attributedPlaceholder = NSAttributedString(string:"Mobile Number", attributes: [NSParagraphStyleAttributeName: centeredParagraphStyle])
+//        self.mobileNumTxtFld.attributedPlaceholder = attributedPlaceholder
         
         let userDeafults = UserDefaults.standard
         userNameLbl.text = userDeafults.string(forKey: "FullName")
@@ -44,11 +50,13 @@ class SignUpViewController: RootViewController,UITextFieldDelegate {
         }
         else {
             print("success")
-            self.fnForRevealViewController()
+            self.fnForOTPViewController()
         }
     }
     @IBAction func backToLogin(_ sender: Any) {
-        self.fnForRevealViewController()
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
