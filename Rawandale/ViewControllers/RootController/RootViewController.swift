@@ -168,5 +168,4 @@ class RootViewController: UIViewController {
         sdLoader.stopAnimation()
     }
     
-    
 }

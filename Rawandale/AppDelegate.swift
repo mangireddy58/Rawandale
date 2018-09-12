@@ -15,6 +15,7 @@ import FacebookLogin
 import FBSDKLoginKit
 import UserNotifications
 import AudioToolbox
+import PinterestSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Facebook
          FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // Pinterest
+        PDKClient.configureSharedInstance(withAppId: "4988652782713066090")
         
         if window == nil {
             window = UIWindow(frame: UIScreen.main.bounds)
@@ -128,8 +132,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let checkFB = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         let checkGoogle = GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: sourceApplication,annotation: annotation)
         let checkLinkedIn =  LISDKCallbackHandler.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        let checkPinterest = PDKClient.sharedInstance().handleCallbackURL(url)
         
-        return checkGoogle || checkFB || checkLinkedIn
+        return checkGoogle || checkFB || checkLinkedIn || checkPinterest
     }
     //MARK:- Notifications
     func fnForRegisterRemoteNotification()  {

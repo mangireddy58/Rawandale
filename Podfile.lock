@@ -1,4 +1,10 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
   - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -6,6 +12,8 @@ PODS:
   - AFNetworking/Reachability (3.1.0)
   - AFNetworking/Security (3.1.0)
   - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
   - Alamofire (4.5.1)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -62,11 +70,15 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.11)
   - IQKeyboardManagerSwift (4.0.13)
   - PageMenu (1.2.9)
+  - PinterestSDK (1.0.2):
+    - AFNetworking (~> 3.0)
+    - SSKeychain
   - ScrollableSegmentedControl (1.2.1)
   - SDWebImage (4.2.2):
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
   - SJSegmentedScrollView (1.3.6)
+  - SSKeychain (1.4.1)
   - TextFieldEffects (1.3.3)
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.0):
@@ -81,6 +93,7 @@ DEPENDENCIES:
   - Google/SignIn
   - IQKeyboardManagerSwift
   - PageMenu
+  - PinterestSDK
   - ScrollableSegmentedControl
   - SDWebImage
   - SJSegmentedScrollView
@@ -107,9 +120,11 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - PageMenu
+    - PinterestSDK
     - ScrollableSegmentedControl
     - SDWebImage
     - SJSegmentedScrollView
+    - SSKeychain
     - TextFieldEffects
     - TwitterCore
     - TwitterKit
@@ -133,14 +148,16 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   IQKeyboardManagerSwift: fb399c4cddcd8d9bbcd2d0c7c81ed290b61c088e
   PageMenu: ba19ff267f7a19e444e93c20a7847b78954a7011
+  PinterestSDK: 6c6d92cc749e6520d1b6f1e75410c6fd1d05844c
   ScrollableSegmentedControl: fc0a1cd9a12662a6c12dea44172262bdcca21cdc
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   SJSegmentedScrollView: 13eb38fc0a28cc46a3ccc52b4e246df0e2227077
+  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   TextFieldEffects: 8706f53525f1ce51c8921b7af32237caab50c467
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: bc7bd086b9b724a1d888745a054e1d0b1ecc4f3f
   YouTubePlayer-Swift: ae82f4bcb504162a872b852596a9dc1fa3828c34
 
-PODFILE CHECKSUM: 35b364aa7635c236396e9a803fb22f87bc360b74
+PODFILE CHECKSUM: 3fa4343b9270704dbeda5bd0c44d659fc4661da0
 
 COCOAPODS: 1.6.0.beta.1

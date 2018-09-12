@@ -17,5 +17,6 @@ target 'Rawandale' do
    pod 'SJSegmentedScrollView'
    pod 'YouTubePlayer-Swift', '~> 1.0'
    pod 'TwitterKit'
+   pod 'PinterestSDK'
    
 end

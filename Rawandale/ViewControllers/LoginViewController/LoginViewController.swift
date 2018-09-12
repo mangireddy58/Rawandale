@@ -11,6 +11,7 @@ import GoogleSignIn
 import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
+import PinterestSDK
 
 class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDelegate, ClassForServerCommDelegate {
     
@@ -201,15 +202,39 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     }
     // MARK:- Linked in Signin
     func fnForLinkedInBtnPressed () {
-        print("Linked in btn clicked")
-//        self.fnForSignUpViewController()
-        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
-            print("success called!")
-            let session = LISDKSessionManager.sharedInstance().session
-            print(session as Any)
-        }) { (error) -> Void in
-            print("Error: \(String(describing: error))")
-        }
+        /*LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION,LISDK_W_SHARE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (athentication) in
+            print(athentication as Any)
+            _ = LISDKSessionManager.sharedInstance().session.accessToken
+            // If already having seession then goes inside.. otherwise create new access token
+            if LISDKSessionManager.hasValidSession(){
+                LISDKAPIHelper.sharedInstance().getRequest("https://api.linkedin.com/v1/people/~?format=json", success: { (response) in
+                print(response as Any)
+                print(response?.data as Any)
+                    let data = response?.data.data(using: String.Encoding.utf8)
+                do {
+                    let dictResponse : [String : AnyObject] = try JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! [String : AnyObject]
+                    print(dictResponse)
+                    self.socialEmailExist()
+                } catch {
+                    print("error")
+                }
+            }, error: { (error) in
+                    print(error as Any)
+                })
+            }
+            else {
+                LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION,LISDK_W_SHARE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (response) in
+                    print(response as Any)
+                }, errorBlock: { (error) in
+                    print(error as Any)
+                })
+            }
+        }) { (error) in
+            print(error as Any)
+        }*/
+        
+        // Pinterest login
+        self.pinterestBtnAction()
     }
     
     //MARK:- Social Email Exist
@@ -241,21 +266,43 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
             let message = responseDictionary["message"] as! String
             if message == "Email already exists" {
                 print(message)
+                showUniversalAlert(title: "Rawandale", message: message)
             }
             else {
                 perform(#selector(self.fnForSocialLogin), with: self, afterDelay: 0.1)
             }
             break
         case kSERVICE_URL_TAG.social_login_url_tag.rawValue:
-            print("language")
+            print("Login successfully")
             break
         default:
             break
-            
         }
     }
     
     func onServiceFailed() {
         print("Service failed")
+    }
+    
+    func pinterestBtnAction() {
+        PDKClient.sharedInstance().authenticate(withPermissions: [PDKClientReadPrivatePermissions,PDKClientReadPublicPermissions,PDKClientReadRelationshipsPermissions,PDKClientWritePublicPermissions,PDKClientWritePrivatePermissions,PDKClientWriteRelationshipsPermissions], withSuccess: { (success :PDKResponseObject!) -> Void in
+            
+                let user = success.user()
+                print(user!.identifier)
+                print(user!.image?.url! as Any)
+                print(user!.username);
+                print(user!.firstName);
+                print(user!.lastName);
+                print(user!.biography);
+                print(user!.largestImage().url)
+                print(user!.smallestImage().url)
+            })
+            { (error) in
+                print(error.debugDescription)
+            }
+    }
+    
+    func pinterestLogout() {
+        PDKClient.clearAuthorizedUser()
     }
 }
