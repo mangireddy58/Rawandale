@@ -26,7 +26,6 @@ class DashBoardViewController: RootViewController {
         
         menuBtnPressed.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
         
-        
         let segmentedControlAppearance = ScrollableSegmentedControl.appearance()
         segmentedControlAppearance.segmentContentColor = UIColor.black
         segmentedControlAppearance.selectedSegmentContentColor = (UIColor(red: 82.0/255.0, green: 174.0/255.0, blue: 85.0/255.0, alpha: 1.0))
@@ -43,6 +42,8 @@ class DashBoardViewController: RootViewController {
         segmentedControl.selectedSegmentIndex = 0
         
         segmentedControl.addTarget(self, action: #selector(DashBoardViewController.segmentSelected(sender:)), for: .valueChanged)
+        
+        UserDataModel.userDataSharedInstance.getUserData()
     }
     func segmentSelected(sender:ScrollableSegmentedControl) {
         print("Segment at index \(sender.selectedSegmentIndex)  selected")

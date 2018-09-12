@@ -147,9 +147,11 @@ class ProfileViewController: RootViewController, ClassForServerCommDelegate {
             break
         }
     }
+    
     func onServiceFailed() {
         print("Service failed")
     }
+    
     @IBAction func personalEditButtonPressed(_ sender: UIButton) {
         switch sender.tag {
         case 1:

@@ -78,10 +78,10 @@ class StatusProfileViewController: RootViewController, ClassForServerCommDelegat
     }
     // MARK:- Save button Pressed
     @IBAction func saveButtonPressed(_ sender: Any) {
-        if self.stateTxtFld.text?.characters.count == 0 {
+        if self.stateTxtFld.text?.count == 0 {
             self.stateTxtFld .becomeFirstResponder()
         }
-        else if self.cityTxtFld.text?.characters.count == 0 {
+        else if self.cityTxtFld.text?.count == 0 {
             self.cityTxtFld.becomeFirstResponder()
         }
         else {

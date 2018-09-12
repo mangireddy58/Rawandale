@@ -15,10 +15,7 @@ class AnnouncementViewController: RootViewController, UITableViewDataSource, UIT
     @IBOutlet weak var manuBtnPressed: UIButton!
     @IBOutlet weak var menuNameLabel: UILabel!
     @IBOutlet weak var annoucementTableView: UITableView!
-    
-    var mutableDataArray:[String] = []
-    var dataArray:NSArray = []
-    var messageArray :NSArray = []
+    var dataArray = NSArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +23,12 @@ class AnnouncementViewController: RootViewController, UITableViewDataSource, UIT
         manuBtnPressed.addTarget(self.revealViewController(), action:#selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
 
         self.fnForNotification ()
+        
     }
     func fnForNotification () {
+        
+        print(UserDataModel.userDataSharedInstance.mUserName)
+       
         self.showLoadingIndicator()
         let announcementParams = String(format: "%@", GET_NOTIFICATION_PARAMS)
         let serverCommObj = ServerCommunication()
@@ -50,6 +51,7 @@ class AnnouncementViewController: RootViewController, UITableViewDataSource, UIT
         }
     }
     func onServiceFailed() {
+        self.hideProgressIndicator()
         print("Service failed")
     }
     
@@ -58,7 +60,6 @@ class AnnouncementViewController: RootViewController, UITableViewDataSource, UIT
         self.annoucementTableView.rowHeight = UITableViewAutomaticDimension
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("data count \(self.dataArray.count)")
         return self.dataArray.count
     }
     
@@ -68,21 +69,15 @@ class AnnouncementViewController: RootViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier:cellIdentifier, for: indexPath) as! AnnouncementCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         if (self.dataArray.value(forKey: "message")as AnyObject) as? NSNull != NSNull() {
-            if (self.dataArray.value(forKey: "message") as AnyObject).length() > 0 {
-                cell.announcementLabel.text! = (self.dataArray[indexPath.row] as AnyObject).value(forKey:"message")  as! String
-            }
+            cell.announcementLabel.text! = (self.dataArray[indexPath.row] as AnyObject).value(forKey:"message")  as! String
         }else {
             cell.announcementLabel.text! = ""
         }
         if (self.dataArray.value(forKey: "createdDate")as AnyObject) as? NSNull != NSNull() {
-            if (self.dataArray.value(forKey: "createdDate") as AnyObject).length() > 0 {
-                cell.dateLabel.text = self.changeDateFormatWithString(dateString:(self.dataArray[indexPath.row] as AnyObject).value(forKey: "createdDate") as! String)
-            }
+            cell.dateLabel.text = self.changeDateFormatWithString(dateString:(self.dataArray[indexPath.row] as AnyObject).value(forKey: "createdDate") as! String)
         }else {
             cell.announcementLabel.text! = ""
         }
-//        cell.announcementLabel.text! = (self.dataArray[indexPath.row] as AnyObject).value(forKey:"message")  as! String
-//        cell.dateLabel.text = self.changeDateFormatWithString(dateString:(self.dataArray[indexPath.row] as AnyObject).value(forKey: "createdDate") as! String)
         
         return cell
     }

@@ -29,7 +29,16 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     }
     func loadInputViews () {
         //self.internetView.isHidden = true
+        //Coredata
+//        UserDataModel.userDataSharedInstance.saveData(username: "Mango", password: "Mango")
+//        UserDataModel.userDataSharedInstance.mUserName = "mangi"
+//        UserDataModel.userDataSharedInstance.mPassword = "mango"
         
+        UserDataModel.userDataSharedInstance.printData()
+        
+        print("View COntroller Print")
+//        print(UserDataModel.userDataSharedInstance.mUserName)
+//        print(UserDataModel.userDataSharedInstance.mPassword)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +104,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
             let firstName = user.profile.givenName
             let lastName = user.profile.familyName
             let email = user.profile.email
-//            let gander = us
+            UserDataModel.userDataSharedInstance.saveUserName(userName:email!)
 
             let profileImageUrl = user.profile.imageURL(withDimension: 200)
             print("Image url \(String(describing: profileImageUrl))")
@@ -103,7 +112,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
             let imageUrl = NSURL(string: url!)
             let imageData = try? Data(contentsOf: imageUrl! as URL)
             let image: UIImage = UIImage(data: imageData!)!
-            let myImageData:NSData = UIImagePNGRepresentation(image) as NSData!
+            let _:NSData = (UIImagePNGRepresentation(image) as NSData?)!
             
             print(userId!,idToken!,fullName!,firstName!,lastName!,email!, url!)
             
@@ -175,7 +184,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
                                     let imageUrl = NSURL(string: urlString)
                                     let imageData = try? Data(contentsOf: imageUrl! as URL)
                                     let image: UIImage = UIImage(data: imageData!)!
-                                    let myImageData:NSData = UIImagePNGRepresentation(image) as NSData!
+                                    let myImageData:NSData = (UIImagePNGRepresentation(image) as NSData?)!
                                     let userDefaults = UserDefaults.standard
                                     userDefaults.set(self.dict["name"] as! String, forKey: "FullName")
                                     userDefaults.set(self.dict["email"] as! String, forKey: "EMailId")
@@ -193,8 +202,14 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     // MARK:- Linked in Signin
     func fnForLinkedInBtnPressed () {
         print("Linked in btn clicked")
-        self.fnForSignUpViewController()
-      
+//        self.fnForSignUpViewController()
+        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (returnState) -> Void in
+            print("success called!")
+            let session = LISDKSessionManager.sharedInstance().session
+            print(session as Any)
+        }) { (error) -> Void in
+            print("Error: \(String(describing: error))")
+        }
     }
     
     //MARK:- Social Email Exist
@@ -239,12 +254,8 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
             
         }
     }
+    
     func onServiceFailed() {
         print("Service failed")
     }
-    
-    
-    
-    
-    
 }

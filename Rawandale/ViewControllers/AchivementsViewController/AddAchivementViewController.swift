@@ -50,9 +50,9 @@ class AddAchivementViewController: RootViewController, ClassForServerCommDelegat
     }
 
     @IBAction func addMoreBtnPressed(_ sender: Any) {
-        if self.achivementTxtFld.text?.characters.count == 0 {
+        if self.achivementTxtFld.text?.count == 0 {
             self.achivementTxtFld .becomeFirstResponder()
-        }else if self.yearTxtFld.text?.characters.count == 0 {
+        } else if self.yearTxtFld.text?.count == 0 {
             self.yearTxtFld .becomeFirstResponder()
         }
         else {
@@ -116,9 +116,9 @@ class AddAchivementViewController: RootViewController, ClassForServerCommDelegat
         print("Service failed")
     }
     @IBAction func saveBtnPressed(_ sender: Any) {
-        if self.achivementTxtFld.text?.characters.count == 0 {
+        if self.achivementTxtFld.text?.count == 0 {
             self.achivementTxtFld .becomeFirstResponder()
-        }else if self.yearTxtFld.text?.characters.count == 0 {
+        }else if self.yearTxtFld.text?.count == 0 {
             self.yearTxtFld .becomeFirstResponder()
         }
         else {

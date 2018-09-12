@@ -61,7 +61,7 @@ class AddProjectsViewController: RootViewController, ClassForServerCommDelegate,
     @IBAction func saveBtnPressed(_ sender: UIButton) {
      switch sender.tag {
      case 1 :
-        if self.titleNameTxtFld.text?.characters.count == 0 || self.teamSizeTxtFld.text?.characters.count == 0 || self.roleTxtFld.text?.characters.count == 0 || self.yearTxtFld.text?.characters.count == 0 || self.descriptionTxtFld.text?.characters.count == 0 {
+        if self.titleNameTxtFld.text?.count == 0 || self.teamSizeTxtFld.text?.count == 0 || self.roleTxtFld.text?.count == 0 || self.yearTxtFld.text?.count == 0 || self.descriptionTxtFld.text?.count == 0 {
             print("Enter all the fields")
         }
         else {
@@ -85,7 +85,7 @@ class AddProjectsViewController: RootViewController, ClassForServerCommDelegate,
         break
             
      case 2 :
-        if self.titleNameTxtFld.text?.characters.count == 0 || self.teamSizeTxtFld.text?.characters.count == 0 || self.roleTxtFld.text?.characters.count == 0 || self.yearTxtFld.text?.characters.count == 0 || self.descriptionTxtFld.text?.characters.count == 0 {
+        if self.titleNameTxtFld.text?.count == 0 || self.teamSizeTxtFld.text?.count == 0 || self.roleTxtFld.text?.count == 0 || self.yearTxtFld.text?.count == 0 || self.descriptionTxtFld.text?.count == 0 {
             print("Enter all the fields")
         }
         else {

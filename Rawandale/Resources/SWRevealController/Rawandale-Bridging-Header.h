@@ -3,5 +3,6 @@
 //
 
 #import "SWRevealViewController.h"
+#import <linkedin-sdk/LISDK.h>
 //#import <AFNetworking/AFNetworking.h>
 

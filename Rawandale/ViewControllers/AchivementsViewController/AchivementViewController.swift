@@ -8,9 +8,8 @@
 
 import UIKit
 
-class AchivementViewController: RootViewController, UITableViewDataSource, UITableViewDelegate, ClassForServerCommDelegate {
+class AchivementViewController: RootViewController, ClassForServerCommDelegate, UITableViewDataSource, UITableViewDelegate {
 
-    
     @IBOutlet weak var menuNameLbl: UILabel!
     @IBOutlet weak var achivementsLbl: UILabel!
     @IBOutlet weak var achivementsTblView: UITableView!
@@ -23,6 +22,7 @@ class AchivementViewController: RootViewController, UITableViewDataSource, UITab
         
         self.loadInputViews()
     }
+    
     func loadInputViews() {
         if !(objUniversalDataModel != nil) {
             objUniversalDataModel = UniversalDataModel.getUniversalDataModel()
@@ -33,6 +33,12 @@ class AchivementViewController: RootViewController, UITableViewDataSource, UITab
         
         self.getAchivements()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.achivementsTblView.estimatedRowHeight = 70
+        self.achivementsTblView.rowHeight = UITableViewAutomaticDimension
+    }
+    
     func getAchivements() {
         self.showLoadingIndicator()
         // Get user details
@@ -60,10 +66,9 @@ class AchivementViewController: RootViewController, UITableViewDataSource, UITab
     func onServiceFailed() {
         print("Service failed")
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.achivementsTblView.estimatedRowHeight = 70
-        self.achivementsTblView.rowHeight = UITableViewAutomaticDimension
-    }
+    
+    
+    
     //MARK:- TableViewDatasource & Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -84,16 +89,12 @@ class AchivementViewController: RootViewController, UITableViewDataSource, UITab
             cell.achivementNameLbl.text = (achivementsResArray .object(at: indexPath.row) as AnyObject).value(forKey: "achivement") as? String
         }
         if (achivementsResArray.value(forKey: "achivementYear")as AnyObject) as? NSNull != NSNull() {
-            cell.achivementYearLbl.text = String(format: "YEAR OF THE ACHIVEMENT %@", ((achivementsResArray[indexPath.row] as AnyObject).value(forKey: "achivementYear") as? String!)!)
+            cell.achivementYearLbl.text = String(format: "YEAR OF THE ACHIVEMENT %@", ((achivementsResArray[indexPath.row] as AnyObject).value(forKey: "achivementYear") as? String?)!!)
         }
-        
-//        cell.achivementNameLbl.text = achivementsArray[indexPath.row] as? String
-//        cell.achivementYearLbl.text = "YEAR OF THE ACHIVEMENT 2017"///String(format: "YEAR OF THE ACHIVEMENT %@", (achivementsArray[indexPath.row] as? String)!)
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let delete = achivementsResArray[indexPath.row] as! NSDictionary
         self.objUniversalDataModel?.achivementDeleteArray = achivementsResArray[indexPath.row] as! NSDictionary
         self.fnForAddAchivementViewController()
     }

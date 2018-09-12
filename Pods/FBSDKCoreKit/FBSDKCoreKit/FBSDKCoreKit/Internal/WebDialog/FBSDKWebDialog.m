@@ -316,15 +316,15 @@ static FBSDKWebDialog *g_currentDialog = nil;
   }
   transform = CGAffineTransformScale([self _transformForOrientation], scale, scale);
   void(^updateBlock)(void) = ^{
-    _dialogView.transform = transform;
+      self->_dialogView.transform = transform;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    CGRect mainFrame = _dialogView.window.screen.applicationFrame;
+      CGRect mainFrame = self->_dialogView.window.screen.applicationFrame;
 #pragma clang diagnostic pop
-    _dialogView.center = CGPointMake(CGRectGetMidX(mainFrame),
+      self->_dialogView.center = CGPointMake(CGRectGetMidX(mainFrame),
                                      CGRectGetMidY(mainFrame));
-    _backgroundView.alpha = alpha;
+      self->_backgroundView.alpha = alpha;
   };
   if (animationDuration == 0.0) {
     updateBlock();

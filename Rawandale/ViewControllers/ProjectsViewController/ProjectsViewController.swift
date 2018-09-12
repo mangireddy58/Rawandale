@@ -78,7 +78,7 @@ class ProjectsViewController: RootViewController, ClassForServerCommDelegate, UI
             cell.projectNameLbl.text = (projectsResArray .object(at: indexPath.row) as AnyObject).value(forKey: "projectName") as? String
         }
         if (projectsResArray.value(forKey: "projectYear")as AnyObject) as? NSNull != NSNull() {
-            cell.yearLbl.text = String(format: "DESCRIPTION IN MORE DETAIL       %@", ((projectsResArray[indexPath.row] as AnyObject).value(forKey: "projectYear") as? String!)!)
+            cell.yearLbl.text = String(format: "DESCRIPTION IN MORE DETAIL       %@", ((projectsResArray[indexPath.row] as AnyObject).value(forKey: "projectYear") as? String?)!!)
         }
         if (projectsResArray.value(forKey: "description")as AnyObject) as? NSNull != NSNull() {
             cell.descriptionLbl.text = (projectsResArray .object(at: indexPath.row) as AnyObject).value(forKey: "description") as? String

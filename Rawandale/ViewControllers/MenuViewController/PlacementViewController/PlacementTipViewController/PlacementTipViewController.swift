@@ -16,7 +16,7 @@ class PlacementTipViewController: RootViewController, ClassForServerCommDelegate
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var menuNameLabel: UILabel!
     @IBOutlet weak var videoImageView: UIImageView!
-
+    @IBOutlet var videoViewPlayer: YouTubePlayerView!
     
     var dataDict = NSDictionary()
     
@@ -27,6 +27,11 @@ class PlacementTipViewController: RootViewController, ClassForServerCommDelegate
     }
 
     func getPlacementTips () {
+        let videoTapGesture = UITapGestureRecognizer(target: self, action: #selector(playVideo))
+        videoImageView.addGestureRecognizer(videoTapGesture)
+        videoImageView.isUserInteractionEnabled = true
+        videoImageView.contentMode = .scaleAspectFill
+        
         self.showLoadingIndicator()
         let placementTipParams = String(format:GET_TIP_PARAMS,(self.objUniversalDataModel?.placementTipsAndTopicId)!)
         let serverCommObj = ServerCommunication()
@@ -34,6 +39,7 @@ class PlacementTipViewController: RootViewController, ClassForServerCommDelegate
         print("Tips params",placementTipParams)
         serverCommObj.sendHttpPostRequestWithParam(parameterString: placementTipParams, serviceName:GET_TIP_URL)
     }
+    
     func onServiceSuccess(responseDictionary: NSDictionary) {
         print(responseDictionary)
         self.hideProgressIndicator()
@@ -41,47 +47,56 @@ class PlacementTipViewController: RootViewController, ClassForServerCommDelegate
         if message == 1 {
             self.dataDict = (responseDictionary["data"] as! NSDictionary)
             print("data is ", self.dataDict)
-            self.objUniversalDataModel?.videoDataDict = self.dataDict
+            if (self.dataDict.value(forKey: "topicName")as AnyObject) as? NSNull != NSNull() {
+                if (self.dataDict.value(forKey: "topicName") as AnyObject).length() > 0 {
+                   self.titleNameLabel?.text = (self.dataDict.value(forKey: "topicName")  as? String)!
+                }
+            }
+            
+            if (self.dataDict.value(forKey: "updatedDate")as AnyObject) as? NSNull != NSNull() {
+                if (self.dataDict.value(forKey: "updatedDate") as AnyObject).length() > 0 {
+                    self.dateLabel?.text = (self.changeDateFormatWithDate(dateString:(self.dataDict.value(forKey: "updatedDate")  as? String)!))
+                }
+            }
+            
             if (self.dataDict.value(forKey: "profileImage")as AnyObject) as? NSNull != NSNull() {
                 if (self.dataDict.value(forKey: "profileImage") as AnyObject).length() > 0 {
                     videoImageView.sd_setImage(with: URL(string: (self.dataDict.value(forKey: "profileImage")  as? String)!), placeholderImage: UIImage(named: "Default_user"))
                 }
             }
-            
-//            profileImage
-            let videoTapGesture = UITapGestureRecognizer(target: self, action: #selector(playVideo))
-            videoImageView.addGestureRecognizer(videoTapGesture)
-            videoImageView.isUserInteractionEnabled = true
-            videoImageView.contentMode = .scaleAspectFill
+        }
+        else {
+            print(responseDictionary["message"] as! String)
         }
     }
-    
     func onServiceFailed() {
         self.hideProgressIndicator()
         print("Service Failed")
     }
-    func playVideo(videotapGesture:UITapGestureRecognizer) {
-        
-        let signUp = storyBoard.instantiateViewController(withIdentifier: "VideoViewController") as! VideoViewController
-        self.present(signUp, animated: true, completion: nil)
-//        self.videoPlayer.allow
-//        videoPlayer.play()
-//        let url:String = "https://www.youtube.com/watch?v=keP5KB52__Y"
-//        let videoURL = NSURL(string: url)
-//        let player = AVPlayer(url: videoURL! as URL)
-//        let playerController = AVPlayerViewController()
-//        playerController.player = player
-//        self .present(playerController, animated: true) {
-//            playerController.player?.play()
-//        }
-        
+    // MARK:- Finding youtube Id
+    func getYoutubeId(youtubeUrl: String) -> String? {
+        return URLComponents(string: youtubeUrl)?.queryItems?.first(where: { $0.name == "v" })?.value
     }
+    // MARK:- Video Playing
+    func playVideo(videotapGesture:UITapGestureRecognizer) {
+        self.showLoadingIndicator()
+        self.videoImageView.isHidden = true
+        if (self.dataDict.value(forKey: "videoUrl")as AnyObject) as? NSNull != NSNull() {
+            if (self.dataDict.value(forKey: "videoUrl") as AnyObject).length() > 0 {
+                let url = self.getYoutubeId(youtubeUrl: (self.dataDict.value(forKey: "videoUrl")  as? String)!)
+                videoViewPlayer.loadVideoID(url!)
+                videoViewPlayer.play()
+                self.hideProgressIndicator()
+            }
+        }
+    }
+    // MARK:- Back
     @IBAction func backButtonPressed(_ sender: Any) {
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
     }
-    
+    // MARK:- Share
     @IBAction func shareButtonPressed(_ sender: Any) {
         print("share app")
         let userDeafults = UserDefaults.standard

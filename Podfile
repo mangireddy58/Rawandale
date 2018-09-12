@@ -16,5 +16,6 @@ target 'Rawandale' do
    pod "TextFieldEffects"
    pod 'SJSegmentedScrollView'
    pod 'YouTubePlayer-Swift', '~> 1.0'
+   pod 'TwitterKit'
    
 end

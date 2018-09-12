@@ -34,7 +34,7 @@ class OTPViewController: RootViewController, UITextFieldDelegate, ClassForServer
         }
     }
     @IBAction func submitBtnPressed(_ sender: Any) {
-        if (self.otpTxtFld.text!.characters.count) < 4 {
+        if (self.otpTxtFld.text!.count) < 4 {
             self.otpTxtFld.becomeFirstResponder()
         }
         else {
@@ -99,7 +99,7 @@ class OTPViewController: RootViewController, UITextFieldDelegate, ClassForServer
     }
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.otpTxtFld {
-            if self.otpTxtFld.text!.characters.count >= kOTPNumLength {
+            if self.otpTxtFld.text!.count >= kOTPNumLength {
                 self.otpTxtFld.resignFirstResponder()
             }
         }

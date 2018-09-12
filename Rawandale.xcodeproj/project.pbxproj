@@ -63,6 +63,7 @@
 		4AB5CB091F7116050042171A /* DigitalCVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB5CB081F7116050042171A /* DigitalCVViewController.swift */; };
 		4AB5CB0C1F7121C20042171A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB5CB0B1F7121C20042171A /* Extensions.swift */; };
 		4AB5CB0F1F713A0F0042171A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB5CB0E1F713A0F0042171A /* HomeViewController.swift */; };
+		4AC5F8891FF3A39500C17A54 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC5F8881FF3A39500C17A54 /* UserDataModel.swift */; };
 		4AD313B11FD80B8D00E71138 /* MIDatePickerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD313B01FD80B8D00E71138 /* MIDatePickerDemo.swift */; };
 		4AD313B31FD81DD700E71138 /* MIDatePickerDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AD313B21FD81DD700E71138 /* MIDatePickerDemo.xib */; };
 		4ADF0FC81F8CD45900A6FCB2 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF0FC71F8CD45900A6FCB2 /* OTPViewController.swift */; };
@@ -81,6 +82,7 @@
 		4AF34DB41F72404D009246DE /* PlacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF34DB31F72404D009246DE /* PlacementViewController.swift */; };
 		4AF34DB61F724067009246DE /* AnnouncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF34DB51F724067009246DE /* AnnouncementViewController.swift */; };
 		4AF34DB81F72407A009246DE /* AboutusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF34DB71F72407A009246DE /* AboutusViewController.swift */; };
+		9D91019C2147F84B00BA6BC8 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D91019B2147F84B00BA6BC8 /* linkedin-sdk.framework */; };
 		F5BADA046773DEBCA2A686B2 /* Pods_Rawandale.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EDEEF1D92FAE9BE8EBCD51C /* Pods_Rawandale.framework */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +146,7 @@
 		4AB5CB081F7116050042171A /* DigitalCVViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitalCVViewController.swift; sourceTree = "<group>"; };
 		4AB5CB0B1F7121C20042171A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4AB5CB0E1F713A0F0042171A /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		4AC5F8881FF3A39500C17A54 /* UserDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		4AD313B01FD80B8D00E71138 /* MIDatePickerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDatePickerDemo.swift; sourceTree = "<group>"; };
 		4AD313B21FD81DD700E71138 /* MIDatePickerDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIDatePickerDemo.xib; sourceTree = "<group>"; };
 		4ADF0FC71F8CD45900A6FCB2 /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +170,7 @@
 		4AF34DB51F724067009246DE /* AnnouncementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementViewController.swift; sourceTree = "<group>"; };
 		4AF34DB71F72407A009246DE /* AboutusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutusViewController.swift; sourceTree = "<group>"; };
 		72F07A8000C4D2361A6F942C /* Pods-Rawandale.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rawandale.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rawandale/Pods-Rawandale.debug.xcconfig"; sourceTree = "<group>"; };
+		9D91019B2147F84B00BA6BC8 /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
 		E529DBB691C4BA6966C7A2A0 /* Pods-Rawandale.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rawandale.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rawandale/Pods-Rawandale.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D91019C2147F84B00BA6BC8 /* linkedin-sdk.framework in Frameworks */,
 				4A321D671FDFF29000634589 /* AVFoundation.framework in Frameworks */,
 				F5BADA046773DEBCA2A686B2 /* Pods_Rawandale.framework in Frameworks */,
 			);
@@ -307,12 +312,12 @@
 			path = ProjectCustomCell;
 			sourceTree = "<group>";
 		};
-		4A36A2E71FD66B8B004FCF8C /* UserDataModel */ = {
+		4A36A2E71FD66B8B004FCF8C /* UniversalDataModel */ = {
 			isa = PBXGroup;
 			children = (
 				4A17E6001FD7BB1600AE6770 /* UniversalDataModel.swift */,
 			);
-			path = UserDataModel;
+			path = UniversalDataModel;
 			sourceTree = "<group>";
 		};
 		4A36A2EA1FD6BEFC004FCF8C /* CollectionCell */ = {
@@ -489,6 +494,14 @@
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
+		4AC5F8871FF3A39500C17A54 /* UserDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				4AC5F8881FF3A39500C17A54 /* UserDataModel.swift */,
+			);
+			path = UserDataModel;
+			sourceTree = "<group>";
+		};
 		4ADF0FC61F8CD42E00A6FCB2 /* OTPViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,7 +572,8 @@
 		4AF2972E1F6FD18100CCE5F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4A36A2E71FD66B8B004FCF8C /* UserDataModel */,
+				4AC5F8871FF3A39500C17A54 /* UserDataModel */,
+				4A36A2E71FD66B8B004FCF8C /* UniversalDataModel */,
 				4A2A6ED91F85FBA40008BFC6 /* ServerCommunication */,
 			);
 			path = Model;
@@ -691,6 +705,7 @@
 		AB7164D25EA04DA94A003550 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D91019B2147F84B00BA6BC8 /* linkedin-sdk.framework */,
 				4A321D661FDFF29000634589 /* AVFoundation.framework */,
 				3EDEEF1D92FAE9BE8EBCD51C /* Pods_Rawandale.framework */,
 			);
@@ -727,7 +742,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = simplicity;
 				TargetAttributes = {
 					4AF297151F6FC95F00CCE5F2 = {
@@ -786,7 +801,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Rawandale/Pods-Rawandale-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Rawandale/Pods-Rawandale-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
@@ -803,6 +818,8 @@
 				"${BUILT_PRODUCTS_DIR}/SJSegmentedScrollView/SJSegmentedScrollView.framework",
 				"${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/YouTubePlayer-Swift/YouTubePlayer_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -823,11 +840,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SJSegmentedScrollView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rawandale/Pods-Rawandale-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rawandale/Pods-Rawandale-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C43D4532B402E8E9D214EFB7 /* [CP] Check Pods Manifest.lock */ = {
@@ -854,16 +873,18 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Rawandale/Pods-Rawandale-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Rawandale/Pods-Rawandale-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rawandale/Pods-Rawandale-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rawandale/Pods-Rawandale-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -875,6 +896,7 @@
 			files = (
 				4A17DB091FDE8E620005D413 /* LanguageCustomCell.swift in Sources */,
 				4AF297421F6FF14B00CCE5F2 /* SignUpViewController.swift in Sources */,
+				4AC5F8891FF3A39500C17A54 /* UserDataModel.swift in Sources */,
 				4AB2FCA51F84A21000E110CA /* CAPSPageMenu+UIScrollViewDelegate.swift in Sources */,
 				4AB2FCA71F84A21000E110CA /* MenuItemView.swift in Sources */,
 				323ACD101F8E157400C7F349 /* SkillsViewController.swift in Sources */,
@@ -972,6 +994,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -979,6 +1002,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1028,6 +1052,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1035,6 +1060,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1070,6 +1096,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = MR2PX4Y62Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Rawandale/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1088,6 +1118,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = MR2PX4Y62Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Rawandale/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

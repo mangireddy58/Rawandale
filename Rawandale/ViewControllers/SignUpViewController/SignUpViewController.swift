@@ -45,7 +45,7 @@ class SignUpViewController: RootViewController,UITextFieldDelegate {
     
 
     @IBAction func signUpBtnPressed(_ sender: Any) {
-        if (self.mobileNumTxtFld.text!.characters.count) < 10 {
+        if (self.mobileNumTxtFld.text!.count) < 10 {
            self.mobileNumTxtFld.becomeFirstResponder()
         }
         else {
@@ -67,7 +67,7 @@ class SignUpViewController: RootViewController,UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField == self.mobileNumTxtFld {
-            if self.mobileNumTxtFld.text!.characters.count >= kMobileNumLength {
+            if self.mobileNumTxtFld.text!.count >= kMobileNumLength {
                 self.mobileNumTxtFld.resignFirstResponder()
             }
         }

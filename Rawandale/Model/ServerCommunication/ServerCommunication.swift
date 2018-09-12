@@ -21,6 +21,7 @@ class ServerCommunication: NSObject {
     // using AFNetworking
     func sendHttpPostRequestWithParam(parameterString : String, serviceName: String) -> Void {
         let serviceUrl = "\(BASE_URL)\(serviceName)"
+        print("service url \(serviceUrl)")
         let data: Data? = parameterString.data(using: String.Encoding.utf8)
         let parametersDictionary = try? JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary
         print("Params", parametersDictionary as Any)

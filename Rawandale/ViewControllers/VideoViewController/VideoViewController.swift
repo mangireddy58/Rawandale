@@ -20,7 +20,7 @@ class VideoViewController: RootViewController {
         self.loadInputViews()
     }
     func loadInputViews() {
-        print("video dict", (self.objUniversalDataModel?.videoDataDict) as NSDictionary!)
+        print("video dict", (self.objUniversalDataModel?.videoDataDict) as NSDictionary?!)
         if (self.objUniversalDataModel?.videoDataDict.value(forKey: "topicName")as AnyObject) as? NSNull != NSNull() {
             if (self.objUniversalDataModel?.videoDataDict.value(forKey: "topicName") as AnyObject).length() > 0 {
                 self.topicNameLabel.text = ((self.objUniversalDataModel?.videoDataDict.value(forKey: "topicName")  as? String)!)
