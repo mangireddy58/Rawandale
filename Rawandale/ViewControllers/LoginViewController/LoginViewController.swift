@@ -288,14 +288,14 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
         PDKClient.sharedInstance().authenticate(withPermissions: [PDKClientReadPrivatePermissions,PDKClientReadPublicPermissions,PDKClientReadRelationshipsPermissions,PDKClientWritePublicPermissions,PDKClientWritePrivatePermissions,PDKClientWriteRelationshipsPermissions], withSuccess: { (success :PDKResponseObject!) -> Void in
             
                 let user = success.user()
-                print(user!.identifier)
+                print((user?.identifier)!)
                 print(user!.image?.url! as Any)
-                print(user!.username);
-                print(user!.firstName);
-                print(user!.lastName);
-                print(user!.biography);
-                print(user!.largestImage().url)
-                print(user!.smallestImage().url)
+                print((user?.username)!)
+                print((user?.firstName)!)
+                print((user?.lastName)!)
+                print((user?.biography)!)
+                print((user?.largestImage().url)!)
+                print((user?.smallestImage().url)!)
             })
             { (error) in
                 print(error.debugDescription)
