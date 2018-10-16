@@ -190,6 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         completionHandler(.newData)
     }
+    
     func callApplicationInactiveForPush(payload:NSDictionary){
         print(payload)
         

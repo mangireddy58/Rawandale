@@ -241,8 +241,12 @@ static NSString * const kPDKPinterestWebOAuthURLString = @"https://api.pinterest
         // if we came here via SFSafariViewController then we need to dismiss the VC
         if (NSClassFromString(@"SFSafariViewController") != nil) {
             UIViewController *mainViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-            if ([[mainViewController presentedViewController] isKindOfClass:[SFSafariViewController class]]) {
-                [mainViewController dismissViewControllerAnimated:YES completion:nil];
+            if (@available(iOS 9.0, *)) {
+                if ([[mainViewController presentedViewController] isKindOfClass:[SFSafariViewController class]]) {
+                    [mainViewController dismissViewControllerAnimated:YES completion:nil];
+                }
+            } else {
+                // Fallback on earlier versions
             }
         }
         

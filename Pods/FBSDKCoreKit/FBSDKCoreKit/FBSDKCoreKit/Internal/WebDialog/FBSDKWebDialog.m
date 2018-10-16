@@ -151,7 +151,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   CFTimeInterval animationDuration = (animated ? [CATransactionClass animationDuration] : 0.0);
   [self _updateViewsWithScale:1.0 alpha:1.0 animationDuration:animationDuration completion:^(BOOL finished) {
     if (finished) {
-      [_dialogView setNeedsDisplay];
+        [self->_dialogView setNeedsDisplay];
     }
   }];
 }
@@ -208,7 +208,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   // defer so that the consumer is guaranteed to have an opportunity to set the delegate before we fail
   dispatch_async(dispatch_get_main_queue(), ^{
     [self _dismissAnimated:YES];
-    [_delegate webDialog:self didFailWithError:error];
+      [self->_delegate webDialog:self didFailWithError:error];
   });
 }
 

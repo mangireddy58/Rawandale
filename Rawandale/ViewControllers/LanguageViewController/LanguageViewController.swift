@@ -84,7 +84,7 @@ class LanguageViewController: RootViewController, ClassForServerCommDelegate, UI
             cell.languageNameLabel.text = ""
         }
         if (languagesResArray.value(forKey: "read")as AnyObject) as? NSNull != NSNull() {
-            if ((languagesResArray[indexPath.row] as AnyObject).value(forKey: "read") as? Int?) == 1 {
+            if ((languagesResArray.object(at: indexPath.row) as AnyObject).value(forKey: "read") as? Int) == 1 {
                 cell.readLabel.text = "R"
                 cell.readLabel.backgroundColor = UIColor(red: 36.0/255.0, green: 142.0/255.0, blue: 186.0/255.0, alpha: 1.0)
             }

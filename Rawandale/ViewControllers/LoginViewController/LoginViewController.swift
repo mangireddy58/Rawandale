@@ -31,15 +31,15 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     func loadInputViews () {
         //self.internetView.isHidden = true
         //Coredata
-//        UserDataModel.userDataSharedInstance.saveData(username: "Mango", password: "Mango")
+        UserDataModel.userDataSharedInstance.saveData(username: "Mango", password: "reddy")
 //        UserDataModel.userDataSharedInstance.mUserName = "mangi"
 //        UserDataModel.userDataSharedInstance.mPassword = "mango"
         
         UserDataModel.userDataSharedInstance.printData()
         
-        print("View COntroller Print")
-//        print(UserDataModel.userDataSharedInstance.mUserName)
-//        print(UserDataModel.userDataSharedInstance.mPassword)
+        print("View Controller Print")
+        print(UserDataModel.userDataSharedInstance.mUserName)
+        print(UserDataModel.userDataSharedInstance.mPassword)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,7 +160,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
               withError error: Error!) {
-        
+        showUniversalAlert(title: "Rawandale", message: "Cancelled")
     }
     
     // MARK:- Facebook login
@@ -202,7 +202,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
     }
     // MARK:- Linked in Signin
     func fnForLinkedInBtnPressed () {
-        /*LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION,LISDK_W_SHARE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (athentication) in
+        LISDKSessionManager.createSession(withAuth: [LISDK_BASIC_PROFILE_PERMISSION,LISDK_W_SHARE_PERMISSION], state: nil, showGoToAppStoreDialog: true, successBlock: { (athentication) in
             print(athentication as Any)
             _ = LISDKSessionManager.sharedInstance().session.accessToken
             // If already having seession then goes inside.. otherwise create new access token
@@ -231,10 +231,10 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
             }
         }) { (error) in
             print(error as Any)
-        }*/
+        }
         
         // Pinterest login
-        self.pinterestBtnAction()
+//        self.pinterestBtnAction()
     }
     
     //MARK:- Social Email Exist
@@ -263,7 +263,7 @@ class LoginViewController: RootViewController, GIDSignInDelegate, GIDSignInUIDel
         print(responseDictionary)
         switch kServiceUrlTag {
         case kSERVICE_URL_TAG.social_email_exist_url_tag.rawValue:
-            let message = responseDictionary["message"] as! String
+            let message = responseDictionary["success"] as! String
             if message == "Email already exists" {
                 print(message)
                 showUniversalAlert(title: "Rawandale", message: message)

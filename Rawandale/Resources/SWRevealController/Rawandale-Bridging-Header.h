@@ -4,5 +4,6 @@
 
 #import "SWRevealViewController.h"
 #import <linkedin-sdk/LISDK.h>
+#import "VKSideMenu.h"
 //#import <AFNetworking/AFNetworking.h>
 

@@ -11,12 +11,13 @@ import SystemConfiguration
 import SDWebImage
 
 
-class RootViewController: UIViewController {
+class RootViewController: UIViewController, VKSideMenuDataSource, VKSideMenuDelegate {
     
     var storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
     var kServiceUrlTag:Int = 100
     var objUniversalDataModel: UniversalDataModel?
     let sdLoader = SDLoader()
+    var menuLeft: VKSideMenu?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,10 @@ class RootViewController: UIViewController {
         if !(objUniversalDataModel != nil) {
             objUniversalDataModel = UniversalDataModel.getUniversalDataModel()
         }
+        
+        menuLeft = VKSideMenu(size: (VIEWWIDTH - 120), andDirection: VKSideMenuDirection.fromLeft)
+        menuLeft?.dataSource = self
+        menuLeft?.delegate = self
     }
     // MARK:- Login
     func fnForLoginViewController () {
@@ -168,4 +173,50 @@ class RootViewController: UIViewController {
         sdLoader.stopAnimation()
     }
     
+    //MARK:- SideMenu Datasource & Delgate methods
+    @IBAction func fnForMenuButtonPressed(_ sender: UIButton) {
+        self.view.endEditing(true)
+        self.menuLeft?.show()
+    }
+    
+    func numberOfSections(in sideMenu: VKSideMenu!) -> Int {
+        return 1
+    }
+    
+    func sideMenu(_ sideMenu: VKSideMenu!, numberOfRowsInSection section: Int) -> Int {
+        return menu.BE_A_REPORTER.rawValue+1
+    }
+    
+    func sideMenu(_ sideMenu: VKSideMenu!, itemForRowAt indexPath: IndexPath!) -> VKSideMenuItem! {
+        let item = VKSideMenuItem()
+        switch indexPath.row {
+        case menu.LOCAL_NEWS.rawValue:
+            item.title = "LOCAL NEWS"
+            item.icon = UIImage(named: "local_news_menu_new")
+            break
+        case menu.EVENT.rawValue:
+            item.title = "EVENT"
+            item.icon = UIImage(named: "events_menu_new")
+            break
+        case menu.HALF_OF_FAME.rawValue:
+            item.title = "HALF OF FAME"
+            item.icon = UIImage(named: "hof_menu_new")
+            break
+        case menu.HIGHWAYDASH.rawValue:
+            item.title = "HIGHWAY"
+            item.icon = UIImage(named: "highway_menu_new")
+            break
+        case menu.BE_A_REPORTER.rawValue:
+            item.title = "REPORTER"
+            item.icon = UIImage(named: "Beareporter_menu_new")
+            break
+        case menu.PITSTOP.rawValue:
+            item.title = "Pitstop New"
+            item.icon = UIImage(named: "pitstop_menu_new")
+            break
+        default:
+            break
+        }
+        return item
+    }
 }

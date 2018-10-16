@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, PDKPinError){
 /**
  *  Block signature when the unauthorized pin creation succeeds
  */
-typedef void (^PDKUnauthPinCreationSuccess)();
+typedef void (^PDKUnauthPinCreationSuccess)(void);
 /**
  *  Block signature when the unauthorized pin creation fails
  *
@@ -98,8 +98,8 @@ typedef void (^PDKUnauthPinCreationFailure)(NSError *error);
  *  @param sourceURL          The URL to the source of the pin
  *  @param suggestedBoardName A suggested name of a board to pin to
  *  @param pinDescription     The description of the pin
- *  @param successBlock Called when the API call succeeds
- *  @param failureBlock Called when the API call fails
+ *  @param pinSuccessBlock Called when the API call succeeds
+ *  @param pinFailureBlock Called when the API call fails
  */
 + (void)pinWithImageURL:(NSURL *)imageURL
                    link:(NSURL *)sourceURL

@@ -140,15 +140,4 @@ class DashBoardViewController: RootViewController {
         pageMenu!.didMove(toParentViewController: self)
         
     }*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   
-
 }

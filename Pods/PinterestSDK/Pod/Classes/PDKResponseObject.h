@@ -10,7 +10,7 @@
 
 #import "PDKClient.h"
 
-typedef void (^PDKResponseObjectLoadedSuccess)();
+typedef void (^PDKResponseObjectLoadedSuccess)(void);
 typedef void (^PDKResponseObjectLoadedFailure)(NSError *error);
 
 /**

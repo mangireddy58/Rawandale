@@ -98,7 +98,7 @@ __attribute__((noinline)) static size_t remaining_stack_size(size_t *restrict to
     return mainThreadExecutor;
 }
 
-+ (instancetype)executorWithBlock:(void(^)(void(^block)()))block {
++ (instancetype)executorWithBlock:(void(^)(void(^block)(void)))block {
     return [[self alloc] initWithBlock:block];
 }
 

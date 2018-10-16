@@ -144,6 +144,16 @@ enum kSERVICE_URL_TAG: Int {
     case social_login_url_tag = 100, social_email_exist_url_tag, check_otp_url_tag,resend_otp_url_tag, get_user_profile_url_tag, update_user_profile_url_tag, get_cv_data_url_tag, announcement_url_tag, get_achivements_url_tag, add_achivement_url_tag, add_projects_url_tag, add_more_achivement_url_tag, delete_achivement_url_tag, get_projects_url_tag, add_more_projects_url_tag, delete_projects_url_tag, get_languages_url_tag, get_user_languages_url_tag, add_more_languages_url_tag, add_languages_url_tag, delete_language_url_tag, get_skills_url_tag, notification_url_tag, get_state_url_tag, get_external_drives_url_tag, get_eligibility_drives_url_tag
     
 }
+
+enum menu : Int {
+    case HIGHWAYDASH = 0
+    case PITSTOP
+    case LOCAL_NEWS
+    case EVENT
+    case HALF_OF_FAME
+    case BE_A_REPORTER
+}
+
 var FONTNAME_LIGHT = "AppleSDGothicNeo-Regular"
 var FONTNAME_BOLD  = "AppleSDGothicNeo-Bold"
 

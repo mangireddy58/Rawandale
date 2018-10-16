@@ -67,6 +67,7 @@
 		4AD313B11FD80B8D00E71138 /* MIDatePickerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD313B01FD80B8D00E71138 /* MIDatePickerDemo.swift */; };
 		4AD313B31FD81DD700E71138 /* MIDatePickerDemo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AD313B21FD81DD700E71138 /* MIDatePickerDemo.xib */; };
 		4ADF0FC81F8CD45900A6FCB2 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF0FC71F8CD45900A6FCB2 /* OTPViewController.swift */; };
+		4AE71D212170AC0000071F34 /* VKSideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE71D1F2170AC0000071F34 /* VKSideMenu.m */; };
 		4AF24E061F70E46B0006CCAD /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF24E051F70E46B0006CCAD /* GlobalConstant.swift */; };
 		4AF24E081F70F7100006CCAD /* RevealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF24E071F70F7100006CCAD /* RevealViewController.swift */; };
 		4AF2971A1F6FC95F00CCE5F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF297191F6FC95F00CCE5F2 /* AppDelegate.swift */; };
@@ -150,6 +151,8 @@
 		4AD313B01FD80B8D00E71138 /* MIDatePickerDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDatePickerDemo.swift; sourceTree = "<group>"; };
 		4AD313B21FD81DD700E71138 /* MIDatePickerDemo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MIDatePickerDemo.xib; sourceTree = "<group>"; };
 		4ADF0FC71F8CD45900A6FCB2 /* OTPViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
+		4AE71D1F2170AC0000071F34 /* VKSideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKSideMenu.m; sourceTree = "<group>"; };
+		4AE71D202170AC0000071F34 /* VKSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKSideMenu.h; sourceTree = "<group>"; };
 		4AF24E051F70E46B0006CCAD /* GlobalConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		4AF24E071F70F7100006CCAD /* RevealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RevealViewController.swift; path = ../RevealViewController.swift; sourceTree = "<group>"; };
 		4AF297161F6FC95F00CCE5F2 /* Rawandale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rawandale.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -519,6 +522,15 @@
 			path = DatePicker;
 			sourceTree = "<group>";
 		};
+		4AE71D1E2170AB0B00071F34 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4AE71D202170AC0000071F34 /* VKSideMenu.h */,
+				4AE71D1F2170AC0000071F34 /* VKSideMenu.m */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
 		4AF24E091F70F79A0006CCAD /* MenuViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,6 +640,7 @@
 		4AF297391F6FE9EF00CCE5F2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4AE71D1E2170AB0B00071F34 /* SideMenu */,
 				4A79D70E1FD94D2600FB9BDA /* Loader Classes */,
 				4ADF215B1FD7F8370076822E /* DatePicker */,
 				4AB2FC991F84A1FB00E110CA /* PageMenu */,
@@ -906,6 +919,7 @@
 				323ACD101F8E157400C7F349 /* SkillsViewController.swift in Sources */,
 				4AF34DB21F72402C009246DE /* DrivesViewController.swift in Sources */,
 				4AB2FCA11F84A21000E110CA /* CAPSPageMenu.swift in Sources */,
+				4AE71D212170AC0000071F34 /* VKSideMenu.m in Sources */,
 				32FA90A11F7E6C1800CE3E2A /* Reachability.swift in Sources */,
 				32F1D8611F8B9969001D3E40 /* ProjectsViewController.swift in Sources */,
 				322B23341F8B4E8700C68B8A /* StatusProfileViewController.swift in Sources */,
