@@ -124,6 +124,7 @@ class RootViewController: UIViewController, VKSideMenuDataSource, VKSideMenuDele
         let skill = storyBoard.instantiateViewController(withIdentifier: "SkillsViewController") as! SkillsViewController
         self.navigationController?.pushViewController(skill, animated: true)
     }
+    
     // MARK:- Internet Connection
     func isConnectedToNetwork() -> Bool{
         var zeroAddress = sockaddr_in()
@@ -144,6 +145,7 @@ class RootViewController: UIViewController, VKSideMenuDataSource, VKSideMenuDele
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
     }
+    
     // MARK:- Dateformat
     func changeDateFormatWithString(dateString:String) -> String {
         let dateStr = dateString
@@ -154,6 +156,7 @@ class RootViewController: UIViewController, VKSideMenuDataSource, VKSideMenuDele
         let finalStr = formatter.string(from: yourDate!)
         return finalStr as String
     }
+    
     func changeDateFormatWithDate(dateString:String) -> String {
         let dateStr = dateString
         let formatter = DateFormatter()
@@ -163,11 +166,13 @@ class RootViewController: UIViewController, VKSideMenuDataSource, VKSideMenuDele
         let finalStr = formatter.string(from: yourDate!)
         return finalStr as String
     }
+    
     // MARK:- Show Progress Indicator
     func showLoadingIndicator()-> Void {
         // For loader
         sdLoader.startAnimating(atView: self.view)
     }
+    
     // MARK:- Hide Progress Indicator
     func hideProgressIndicator() {
         sdLoader.stopAnimation()

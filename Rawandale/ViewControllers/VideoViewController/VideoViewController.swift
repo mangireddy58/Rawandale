@@ -19,6 +19,7 @@ class VideoViewController: RootViewController {
 
         self.loadInputViews()
     }
+    
     func loadInputViews() {
         print("video dict", (self.objUniversalDataModel?.videoDataDict) as NSDictionary?!)
         if (self.objUniversalDataModel?.videoDataDict.value(forKey: "topicName")as AnyObject) as? NSNull != NSNull() {
@@ -35,9 +36,11 @@ class VideoViewController: RootViewController {
         }
         
     }
+    
     func getYoutubeId(youtubeUrl: String) -> String? {
         return URLComponents(string: youtubeUrl)?.queryItems?.first(where: { $0.name == "v" })?.value
     }
+    
     @IBAction func backAction(_ sender: Any) {
         videoViewPlayer.stop()
         self.dismiss(animated: true, completion: nil)
