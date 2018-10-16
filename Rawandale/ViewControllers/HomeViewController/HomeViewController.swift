@@ -11,12 +11,10 @@ import UIKit
 class HomeViewController: UIViewController {
     
     var parentNavigationController : UINavigationController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
-
     
-
 }

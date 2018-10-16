@@ -23,7 +23,6 @@ class DashBoardViewController: RootViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         menuBtnPressed.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
         
         let segmentedControlAppearance = ScrollableSegmentedControl.appearance()
